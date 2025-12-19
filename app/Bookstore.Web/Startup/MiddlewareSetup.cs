@@ -56,7 +56,7 @@ namespace Bookstore.Web.Startup
                 {
                     await context.OrderItem.FirstOrDefaultAsync();
                 }
-                catch (Microsoft.Data.SqlClient.SqlException ex) when (ex.Message.Contains("RowVersion"))
+                catch (Npgsql.NpgsqlException ex) when (ex.Message.Contains("RowVersion"))
                 {
                     await context.Database.EnsureDeletedAsync();
                     await context.Database.EnsureCreatedAsync();

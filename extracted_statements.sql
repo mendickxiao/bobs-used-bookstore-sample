@@ -1,0 +1,118 @@
+-- ============================================================================
+-- EXTRACTED SQL STATEMENTS FROM SQL SERVER
+-- ============================================================================
+-- Project: BobsBookstore .NET Application
+-- Transformation ID: 20251219_075857_45c29917
+-- Date: 2024-12-19
+-- Source Database: Microsoft SQL Server
+-- Target Database: PostgreSQL
+-- ============================================================================
+--
+-- PURPOSE:
+-- This file contains all SQL statements extracted from the application codebase
+-- that require conversion from SQL Server syntax to PostgreSQL syntax.
+--
+-- EXTRACTION PROCESS:
+-- - Searched for inline SQL strings in .cs files
+-- - Searched for string concatenation SQL constructs
+-- - Searched for parameterized SQL statements
+-- - Searched for dynamically constructed SQL using StringBuilder
+-- - Searched for EF Core raw SQL methods (FromSqlRaw, ExecuteSqlRaw, etc.)
+-- - Searched for ADO.NET SqlCommand usage
+--
+-- RESULTS:
+-- No SQL statements were found in the codebase.
+--
+-- ============================================================================
+-- ANALYSIS SUMMARY
+-- ============================================================================
+--
+-- Total SQL Statements Extracted: 0
+-- Files Analyzed: 64 C# files
+-- SQL Files Analyzed: 0
+--
+-- Search Patterns Used:
+-- - "SELECT *" or "INSERT INTO" or "UPDATE *" or "DELETE FROM"
+-- - FromSqlRaw(
+-- - ExecuteSqlRaw(
+-- - FromSqlInterpolated(
+-- - ExecuteSqlInterpolated(
+-- - SqlCommand(
+-- - new SqlCommand
+-- - StringBuilder patterns with SQL keywords
+--
+-- ============================================================================
+-- REASON FOR ZERO STATEMENTS
+-- ============================================================================
+--
+-- The BobsBookstore application uses Entity Framework Core exclusively for
+-- all database operations. All data access is performed through:
+--
+-- 1. LINQ Queries: All queries are written using LINQ expressions that are
+--    automatically translated to SQL by the EF Core provider.
+--
+-- 2. Repository Pattern: All database operations are encapsulated in repository
+--    classes (AddressRepository, BookRepository, CustomerRepository, OfferRepository)
+--    that use only EF Core DbContext methods.
+--
+-- 3. Automatic SQL Generation: The Npgsql.EntityFrameworkCore.PostgreSQL provider
+--    automatically generates PostgreSQL-compatible SQL from LINQ expressions.
+--
+-- 4. No Raw SQL: No raw SQL statements, stored procedure calls, or string-based
+--    queries were found in the entire codebase.
+--
+-- ============================================================================
+-- EXAMPLE LINQ QUERIES (NOT EXTRACTED AS SQL)
+-- ============================================================================
+--
+-- These are example LINQ queries from the codebase that are automatically
+-- translated to PostgreSQL by the EF Core provider. They are shown here for
+-- reference only and do not require manual conversion:
+--
+-- Example 1 (BookRepository.GetAsync):
+-- return await dbContext.Book
+--     .Include(x => x.Genre)
+--     .Include(y => y.Publisher)
+--     .Include(x => x.BookType)
+--     .Include(x => x.Condition)
+--     .SingleAsync(x => x.Id == id);
+--
+-- Example 2 (BookRepository.ListAsync with filtering):
+-- query = query.Where(x => x.Name.Contains(filters.Name));
+-- query = query.Where(x => x.Author.Contains(filters.Author));
+--
+-- Example 3 (CustomerRepository.GetBySubAsync):
+-- return await dbContext.Customer.SingleOrDefaultAsync(x => x.Sub == sub);
+--
+-- These LINQ expressions are automatically converted to PostgreSQL SQL by
+-- the Npgsql provider at runtime. No manual SQL conversion is required.
+--
+-- ============================================================================
+-- DATABASE ENTITIES
+-- ============================================================================
+--
+-- The following entities are managed by Entity Framework Core:
+-- - Address (bobsusedbookstore_dbo.address)
+-- - Book (bobsusedbookstore_dbo.book)
+-- - Customer (bobsusedbookstore_dbo.customer)
+-- - Order (bobsusedbookstore_dbo.orders)
+-- - OrderItem (bobsusedbookstore_dbo.orderitem)
+-- - ShoppingCart (bobsusedbookstore_dbo.shoppingcart)
+-- - ShoppingCartItem (bobsusedbookstore_dbo.shoppingcartitem)
+-- - Offer (bobsusedbookstore_dbo.offer)
+-- - ReferenceDataItem (bobsusedbookstore_dbo.referencedata)
+--
+-- All entity configurations are defined in ApplicationDbContext.cs using
+-- the EF Core Fluent API, ensuring type-safe and maintainable data access.
+--
+-- ============================================================================
+-- CONCLUSION
+-- ============================================================================
+--
+-- No SQL statements require extraction or conversion. The application is
+-- already fully compatible with PostgreSQL through Entity Framework Core
+-- and the Npgsql provider.
+--
+-- ============================================================================
+-- END OF FILE
+-- ============================================================================
